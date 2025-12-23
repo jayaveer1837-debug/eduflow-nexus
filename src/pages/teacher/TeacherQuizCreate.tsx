@@ -27,6 +27,7 @@ import {
   Settings,
 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import QuizPreviewModal from "@/components/quiz/QuizPreviewModal";
 
 interface Option {
   id: string;
@@ -110,6 +111,7 @@ const TeacherQuizCreate = () => {
   ]);
 
   const [activeTab, setActiveTab] = useState<"questions" | "settings">("questions");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const addQuestion = () => {
     const newId = Date.now().toString();
@@ -306,7 +308,7 @@ const TeacherQuizCreate = () => {
             </p>
           </div>
           <div className="flex gap-3">
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2" onClick={() => setIsPreviewOpen(true)}>
               <Eye className="h-4 w-4" />
               Preview
             </Button>
@@ -675,6 +677,13 @@ const TeacherQuizCreate = () => {
           )}
         </AnimatePresence>
       </motion.div>
+
+      <QuizPreviewModal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        questions={questions}
+        settings={settings}
+      />
     </TeacherLayout>
   );
 };
