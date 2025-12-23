@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { GraduationCap, BookMarked, ArrowLeft, Eye, EyeOff, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 type Role = "student" | "teacher";
 
@@ -64,20 +65,51 @@ const Login = () => {
       return;
     }
 
+    if (password.length < 6) {
+      toast({
+        title: "Password too short",
+        description: "Password must be at least 6 characters",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     
-    // Simulate signup delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Account created!",
-      description: `Welcome to EduNexus, ${name}!`,
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('mongodb-signup', {
+        body: {
+          name,
+          email,
+          password,
+          role: selectedRole
+        }
+      });
 
-    // Navigate to appropriate dashboard
-    navigate(selectedRole === "student" ? "/student/dashboard" : "/teacher/dashboard");
-    
-    setIsLoading(false);
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      toast({
+        title: "Account created!",
+        description: `Welcome to EduNexus, ${name}!`,
+      });
+
+      // Navigate to appropriate dashboard
+      navigate(selectedRole === "student" ? "/student/dashboard" : "/teacher/dashboard");
+    } catch (error: any) {
+      toast({
+        title: "Signup failed",
+        description: error.message || "Something went wrong",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
