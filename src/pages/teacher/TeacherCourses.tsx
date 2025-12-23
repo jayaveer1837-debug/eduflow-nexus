@@ -369,14 +369,14 @@ const TeacherCourses = () => {
           setYoutubePreview(null);
         }
       }}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Create New Course</DialogTitle>
             <DialogDescription>
               Add a YouTube video link to get started. The thumbnail will be fetched automatically.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4 pt-4">
+          <div className="space-y-4 pt-4 pb-2">
             {/* YouTube URL Input */}
             <div className="space-y-2">
               <Label htmlFor="youtube-url" className="flex items-center gap-2">
