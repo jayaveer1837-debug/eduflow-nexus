@@ -23,6 +23,9 @@ import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherAnalytics from "./pages/teacher/TeacherAnalytics";
 import TeacherStudents from "./pages/teacher/TeacherStudents";
 import TeacherQuizCreate from "./pages/teacher/TeacherQuizCreate";
+import TeacherCourses from "./pages/teacher/TeacherCourses";
+import TeacherCourseDetail from "./pages/teacher/TeacherCourseDetail";
+import TeacherContentCreate from "./pages/teacher/TeacherContentCreate";
 
 const queryClient = new QueryClient();
 
@@ -48,7 +51,9 @@ const App = () => (
           
           {/* Teacher Routes */}
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
-          <Route path="/teacher/courses" element={<TeacherDashboard />} />
+          <Route path="/teacher/courses" element={<TeacherCourses />} />
+          <Route path="/teacher/course/:id" element={<TeacherCourseDetail />} />
+          <Route path="/teacher/course/:id/content/new" element={<TeacherContentCreate />} />
           <Route path="/teacher/upload" element={<TeacherDashboard />} />
           <Route path="/teacher/quizzes" element={<TeacherQuizCreate />} />
           <Route path="/teacher/students" element={<TeacherStudents />} />
