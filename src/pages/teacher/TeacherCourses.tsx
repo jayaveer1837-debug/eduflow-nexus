@@ -36,6 +36,7 @@ interface Course {
   id: string;
   title: string;
   description: string;
+  youtubeUrl: string;
   students: number;
   modules: number;
   status: "draft" | "published" | "archived";
@@ -43,36 +44,57 @@ interface Course {
   thumbnail: string;
 }
 
+// Extract YouTube video ID from various URL formats
+const extractYouTubeId = (url: string): string | null => {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+    /youtube\.com\/v\/([^&\n?#]+)/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+};
+
+// Get YouTube thumbnail URL from video ID
+const getYouTubeThumbnail = (videoId: string): string => {
+  return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+};
+
 const initialCourses: Course[] = [
   {
     id: "1",
     title: "Introduction to Machine Learning",
     description: "Learn the fundamentals of ML algorithms and applications",
+    youtubeUrl: "https://www.youtube.com/watch?v=ukzFI9rgwfU",
     students: 89,
     modules: 8,
     status: "published",
     lastUpdated: "2 hours ago",
-    thumbnail: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400",
+    thumbnail: "https://img.youtube.com/vi/ukzFI9rgwfU/maxresdefault.jpg",
   },
   {
     id: "2",
     title: "Advanced Python Programming",
     description: "Master advanced Python concepts and best practices",
+    youtubeUrl: "https://www.youtube.com/watch?v=rfscVS0vtbw",
     students: 124,
     modules: 12,
     status: "published",
     lastUpdated: "5 hours ago",
-    thumbnail: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400",
+    thumbnail: "https://img.youtube.com/vi/rfscVS0vtbw/maxresdefault.jpg",
   },
   {
     id: "3",
     title: "Data Science Fundamentals",
     description: "Comprehensive introduction to data science methodologies",
+    youtubeUrl: "https://www.youtube.com/watch?v=ua-CiDNNj30",
     students: 67,
     modules: 6,
     status: "draft",
     lastUpdated: "1 day ago",
-    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
+    thumbnail: "https://img.youtube.com/vi/ua-CiDNNj30/maxresdefault.jpg",
   },
 ];
 
@@ -97,7 +119,21 @@ const TeacherCourses = () => {
   const [courses, setCourses] = useState<Course[]>(initialCourses);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [newCourse, setNewCourse] = useState({ title: "", description: "" });
+  const [newCourse, setNewCourse] = useState({ title: "", description: "", youtubeUrl: "" });
+  const [youtubePreview, setYoutubePreview] = useState<{ videoId: string; thumbnail: string } | null>(null);
+
+  const handleYoutubeUrlChange = (url: string) => {
+    setNewCourse({ ...newCourse, youtubeUrl: url });
+    const videoId = extractYouTubeId(url);
+    if (videoId) {
+      setYoutubePreview({
+        videoId,
+        thumbnail: getYouTubeThumbnail(videoId),
+      });
+    } else {
+      setYoutubePreview(null);
+    }
+  };
 
   const filteredCourses = courses.filter(
     (course) =>
@@ -115,19 +151,30 @@ const TeacherCourses = () => {
       return;
     }
 
+    if (!youtubePreview) {
+      toast({
+        title: "YouTube link required",
+        description: "Please enter a valid YouTube video link",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const course: Course = {
       id: Date.now().toString(),
       title: newCourse.title,
       description: newCourse.description,
+      youtubeUrl: newCourse.youtubeUrl,
       students: 0,
       modules: 0,
       status: "draft",
       lastUpdated: "Just now",
-      thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400",
+      thumbnail: youtubePreview.thumbnail,
     };
 
     setCourses([course, ...courses]);
-    setNewCourse({ title: "", description: "" });
+    setNewCourse({ title: "", description: "", youtubeUrl: "" });
+    setYoutubePreview(null);
     setIsCreateDialogOpen(false);
 
     toast({
@@ -234,21 +281,32 @@ const TeacherCourses = () => {
                 whileHover={{ y: -5 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <Link to={`/teacher/course/${course.id}`}>
-                  <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm group cursor-pointer h-full">
-                    <div className="aspect-video relative overflow-hidden">
-                      <img
-                        src={course.thumbnail}
-                        alt={course.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                      <Badge
-                        className={`absolute top-3 right-3 ${getStatusColor(course.status)}`}
-                      >
-                        {course.status}
-                      </Badge>
+                <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm group cursor-pointer h-full">
+                  <a
+                    href={course.youtubeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="block aspect-video relative overflow-hidden"
+                  >
+                    <img
+                      src={course.thumbnail}
+                      alt={course.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center shadow-lg">
+                        <Video className="h-8 w-8 text-white ml-1" />
+                      </div>
                     </div>
+                    <Badge
+                      className={`absolute top-3 right-3 ${getStatusColor(course.status)}`}
+                    >
+                      {course.status}
+                    </Badge>
+                  </a>
+                  <Link to={`/teacher/course/${course.id}`}>
                     <CardContent className="p-4 space-y-3">
                       <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
                         {course.title}
@@ -273,8 +331,8 @@ const TeacherCourses = () => {
                         </span>
                       </div>
                     </CardContent>
-                  </Card>
-                </Link>
+                  </Link>
+                </Card>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -304,15 +362,77 @@ const TeacherCourses = () => {
       </motion.div>
 
       {/* Create Course Dialog */}
-      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+      <Dialog open={isCreateDialogOpen} onOpenChange={(open) => {
+        setIsCreateDialogOpen(open);
+        if (!open) {
+          setNewCourse({ title: "", description: "", youtubeUrl: "" });
+          setYoutubePreview(null);
+        }
+      }}>
+        <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>Create New Course</DialogTitle>
             <DialogDescription>
-              Start by adding basic course details. You'll add video-quiz modules next.
+              Add a YouTube video link to get started. The thumbnail will be fetched automatically.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 pt-4">
+            {/* YouTube URL Input */}
+            <div className="space-y-2">
+              <Label htmlFor="youtube-url" className="flex items-center gap-2">
+                <Video className="h-4 w-4 text-red-500" />
+                YouTube Video Link
+              </Label>
+              <Input
+                id="youtube-url"
+                placeholder="https://www.youtube.com/watch?v=..."
+                value={newCourse.youtubeUrl}
+                onChange={(e) => handleYoutubeUrlChange(e.target.value)}
+              />
+              {newCourse.youtubeUrl && !youtubePreview && (
+                <p className="text-xs text-destructive">Invalid YouTube URL. Please enter a valid link.</p>
+              )}
+            </div>
+
+            {/* YouTube Thumbnail Preview */}
+            <AnimatePresence>
+              {youtubePreview && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="space-y-2"
+                >
+                  <Label className="text-xs text-muted-foreground">Video Preview</Label>
+                  <a
+                    href={newCourse.youtubeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block relative aspect-video rounded-lg overflow-hidden group cursor-pointer border border-border"
+                  >
+                    <img
+                      src={youtubePreview.thumbnail}
+                      alt="Video thumbnail"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => {
+                        // Fallback to hqdefault if maxresdefault doesn't exist
+                        e.currentTarget.src = `https://img.youtube.com/vi/${youtubePreview.videoId}/hqdefault.jpg`;
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center shadow-xl">
+                        <Video className="h-7 w-7 text-white ml-1" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                      Click to open in YouTube
+                    </div>
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Course Title */}
             <div className="space-y-2">
               <Label htmlFor="title">Course Title</Label>
               <Input
@@ -322,6 +442,8 @@ const TeacherCourses = () => {
                 onChange={(e) => setNewCourse({ ...newCourse, title: e.target.value })}
               />
             </div>
+
+            {/* Description */}
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
               <Textarea
@@ -329,14 +451,20 @@ const TeacherCourses = () => {
                 placeholder="Brief description of what students will learn..."
                 value={newCourse.description}
                 onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })}
-                className="min-h-[100px]"
+                className="min-h-[80px]"
               />
             </div>
+
+            {/* Action Buttons */}
             <div className="flex gap-3 pt-4">
               <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)} className="flex-1">
                 Cancel
               </Button>
-              <Button onClick={handleCreateCourse} className="flex-1">
+              <Button 
+                onClick={handleCreateCourse} 
+                className="flex-1"
+                disabled={!youtubePreview || !newCourse.title.trim()}
+              >
                 Create Course
               </Button>
             </div>
