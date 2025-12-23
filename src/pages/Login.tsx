@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -25,6 +25,26 @@ const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [name, setName] = useState("");
 
+  // Check if user is already logged in
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        // Fetch user profile to get role
+        supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', session.user.id)
+          .maybeSingle()
+          .then(({ data: profile }) => {
+            const userRole = profile?.role || 'student';
+            navigate(userRole === 'student' ? '/student/dashboard' : '/teacher/dashboard');
+          });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -39,18 +59,39 @@ const Login = () => {
 
     setIsLoading(true);
     
-    // Simulate login delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Welcome back!",
-      description: `Logged in as ${selectedRole}`,
-    });
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    // Navigate to appropriate dashboard
-    navigate(selectedRole === "student" ? "/student/dashboard" : "/teacher/dashboard");
-    
-    setIsLoading(false);
+      if (error) {
+        throw error;
+      }
+
+      // Fetch user profile to get role
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role, name')
+        .eq('id', data.user.id)
+        .maybeSingle();
+
+      toast({
+        title: "Welcome back!",
+        description: `Logged in as ${profile?.name || 'User'}`,
+      });
+
+      const userRole = profile?.role || 'student';
+      navigate(userRole === 'student' ? '/student/dashboard' : '/teacher/dashboard');
+    } catch (error: any) {
+      toast({
+        title: "Login failed",
+        description: error.message || "Invalid email or password",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -77,34 +118,40 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const { data, error } = await supabase.functions.invoke('mongodb-signup', {
-        body: {
-          name,
-          email,
-          password,
-          role: selectedRole
+      const redirectUrl = `${window.location.origin}/`;
+      
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: redirectUrl,
+          data: {
+            name: name.trim(),
+            role: selectedRole,
+          }
         }
       });
 
       if (error) {
-        throw new Error(error.message);
+        throw error;
       }
 
-      if (data.error) {
-        throw new Error(data.error);
+      if (data.user) {
+        toast({
+          title: "Account created!",
+          description: `Welcome to EduNexus, ${name}!`,
+        });
+
+        navigate(selectedRole === "student" ? "/student/dashboard" : "/teacher/dashboard");
       }
-
-      toast({
-        title: "Account created!",
-        description: `Welcome to EduNexus, ${name}!`,
-      });
-
-      // Navigate to appropriate dashboard
-      navigate(selectedRole === "student" ? "/student/dashboard" : "/teacher/dashboard");
     } catch (error: any) {
+      let message = error.message || "Something went wrong";
+      if (error.message?.includes("already registered")) {
+        message = "An account with this email already exists. Please sign in instead.";
+      }
       toast({
         title: "Signup failed",
-        description: error.message || "Something went wrong",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -327,10 +374,6 @@ const Login = () => {
             </p>
           </CardContent>
         </Card>
-
-        <p className="text-center text-xs text-muted-foreground mt-6">
-          Academic project demo • No real authentication
-        </p>
       </div>
     </div>
   );
