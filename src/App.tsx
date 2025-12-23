@@ -22,6 +22,7 @@ import StudentProfile from "./pages/student/StudentProfile";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherAnalytics from "./pages/teacher/TeacherAnalytics";
 import TeacherStudents from "./pages/teacher/TeacherStudents";
+import TeacherQuizCreate from "./pages/teacher/TeacherQuizCreate";
 
 const queryClient = new QueryClient();
 
@@ -49,7 +50,7 @@ const App = () => (
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
           <Route path="/teacher/courses" element={<TeacherDashboard />} />
           <Route path="/teacher/upload" element={<TeacherDashboard />} />
-          <Route path="/teacher/quizzes" element={<TeacherDashboard />} />
+          <Route path="/teacher/quizzes" element={<TeacherQuizCreate />} />
           <Route path="/teacher/students" element={<TeacherStudents />} />
           <Route path="/teacher/analytics" element={<TeacherAnalytics />} />
           <Route path="/teacher/profile" element={<TeacherDashboard />} />
