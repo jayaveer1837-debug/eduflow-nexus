@@ -63,7 +63,7 @@ serve(async (req) => {
     await client.connect(mongoUri);
     console.log("Connected to MongoDB successfully");
 
-    const db = client.database("BookMyShow");
+    const db = client.database("EduNexus");
     const usersCollection = db.collection("users");
 
     // Check if user already exists
