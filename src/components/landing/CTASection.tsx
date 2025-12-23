@@ -1,26 +1,51 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export const CTASection = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
   return (
-    <section className="section-padding bg-primary text-primary-foreground">
+    <section className="section-padding bg-primary text-primary-foreground" ref={sectionRef}>
       <div className="container-narrow text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full mb-6">
+        <motion.div 
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+        >
           <Sparkles className="w-4 h-4" />
           <span className="text-sm font-medium">Ready to Transform Learning?</span>
-        </div>
+        </motion.div>
 
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+        <motion.h2 
+          className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           Start Your Journey Today
-        </h2>
+        </motion.h2>
 
-        <p className="text-lg text-primary-foreground/80 mb-10 max-w-2xl mx-auto">
+        <motion.p 
+          className="text-lg text-primary-foreground/80 mb-10 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Join thousands of students and teachers already using EduNexus 
           for a smarter, more personalized learning experience.
-        </p>
+        </motion.p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <motion.div 
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           <Button 
             size="xl" 
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
@@ -41,7 +66,7 @@ export const CTASection = () => {
               Become an Instructor
             </Link>
           </Button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

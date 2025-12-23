@@ -9,6 +9,8 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const features = [
   {
@@ -41,6 +43,8 @@ const features = [
 export const FeatureCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -60,43 +64,78 @@ export const FeatureCarousel = () => {
     setCurrentIndex((prev) => (prev + 1) % features.length);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
-    <section id="features" className="section-padding bg-secondary/30">
+    <section id="features" className="py-16 md:py-20 bg-secondary/30" ref={sectionRef}>
       <div className="container-wide">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
             Powerful Features for Modern Learning
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             Everything you need for an exceptional educational experience
           </p>
-        </div>
+        </motion.div>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <motion.div 
+          className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <Card 
-                key={index} 
-                variant="feature" 
-                className="text-center p-6"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardContent className="p-0">
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div key={index} variants={itemVariants}>
+                <Card 
+                  variant="feature" 
+                  className="text-center p-6 h-full"
+                >
+                  <CardContent className="p-0">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-7 h-7 text-primary" />
+                    </div>
+                    <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Mobile Carousel */}
-        <div className="md:hidden">
+        <motion.div 
+          className="md:hidden"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div className="relative">
             <Card variant="feature" className="text-center p-8">
               <CardContent className="p-0">
@@ -153,7 +192,7 @@ export const FeatureCarousel = () => {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
