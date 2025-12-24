@@ -15,63 +15,21 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const quizzes = [
-  {
-    id: 1,
-    title: "Machine Learning Basics",
-    course: "Introduction to Machine Learning",
-    questions: 10,
-    duration: "15 min",
-    status: "completed",
-    score: 92,
-    dueDate: null
-  },
-  {
-    id: 2,
-    title: "Python Data Structures",
-    course: "Advanced Python Programming",
-    questions: 15,
-    duration: "20 min",
-    status: "available",
-    score: null,
-    dueDate: "Dec 25"
-  },
-  {
-    id: 3,
-    title: "Neural Networks Fundamentals",
-    course: "Introduction to Machine Learning",
-    questions: 12,
-    duration: "18 min",
-    status: "available",
-    score: null,
-    dueDate: "Dec 28"
-  },
-  {
-    id: 4,
-    title: "Web Development Quiz 1",
-    course: "Web Development Fundamentals",
-    questions: 8,
-    duration: "12 min",
-    status: "completed",
-    score: 78,
-    dueDate: null
-  },
-  {
-    id: 5,
-    title: "Database Design Principles",
-    course: "Database Design Principles",
-    questions: 10,
-    duration: "15 min",
-    status: "locked",
-    score: null,
-    dueDate: "Jan 5"
-  },
-];
+const quizzes: {
+  id: number;
+  title: string;
+  course: string;
+  questions: number;
+  duration: string;
+  status: string;
+  score: number | null;
+  dueDate: string | null;
+}[] = [];
 
 const stats = [
-  { label: "Quizzes Completed", value: "23", icon: CheckCircle2, color: "text-primary" },
-  { label: "Average Score", value: "87%", icon: Target, color: "text-accent" },
-  { label: "Best Score", value: "98%", icon: Trophy, color: "text-primary" },
+  { label: "Quizzes Completed", value: "0", icon: CheckCircle2, color: "text-primary" },
+  { label: "Average Score", value: "-", icon: Target, color: "text-accent" },
+  { label: "Best Score", value: "-", icon: Trophy, color: "text-primary" },
 ];
 
 const containerVariants = {

@@ -3,26 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { TrendingUp, BookOpen, Target, Award, Sparkles, Flame, Zap } from "lucide-react";
 
-const courseProgress = [
-  { name: "Machine Learning", progress: 65, color: "from-primary to-accent" },
-  { name: "Web Development", progress: 42, color: "from-accent to-primary" },
-  { name: "Data Structures", progress: 28, color: "from-primary to-accent" },
-  { name: "Python Advanced", progress: 85, color: "from-accent to-primary" },
-  { name: "Database Design", progress: 10, color: "from-primary to-accent" },
-];
+const courseProgress: { name: string; progress: number; color: string }[] = [];
 
-const quizScores = [
-  { name: "ML Quiz 1", score: 92, date: "Dec 18" },
-  { name: "Web Dev Quiz 3", score: 78, date: "Dec 15" },
-  { name: "Python Quiz 2", score: 95, date: "Dec 12" },
-  { name: "ML Quiz 2", score: 88, date: "Dec 10" },
-  { name: "Data Structures Quiz 1", score: 72, date: "Dec 8" },
-];
+const quizScores: { name: string; score: number; date: string }[] = [];
 
 const achievements = [
-  { title: "First Course Completed", icon: Award, earned: true },
-  { title: "Quiz Master", icon: Target, earned: true },
-  { title: "Consistent Learner", icon: Flame, earned: true },
+  { title: "First Course Completed", icon: Award, earned: false },
+  { title: "Quiz Master", icon: Target, earned: false },
+  { title: "Consistent Learner", icon: Flame, earned: false },
   { title: "Speed Learner", icon: Zap, earned: false },
 ];
 

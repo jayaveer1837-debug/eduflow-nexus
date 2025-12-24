@@ -6,48 +6,16 @@ import { motion } from "framer-motion";
 import { MessageCircle, Search, Users, Clock, ThumbsUp, MessageSquare } from "lucide-react";
 import { useState } from "react";
 
-const discussions = [
-  {
-    id: 1,
-    title: "Help understanding backpropagation in neural networks",
-    course: "Introduction to Machine Learning",
-    author: "Sarah M.",
-    replies: 12,
-    likes: 24,
-    lastActivity: "2 hours ago",
-    isHot: true
-  },
-  {
-    id: 2,
-    title: "Best practices for Python list comprehensions?",
-    course: "Advanced Python Programming",
-    author: "John D.",
-    replies: 8,
-    likes: 15,
-    lastActivity: "5 hours ago",
-    isHot: false
-  },
-  {
-    id: 3,
-    title: "Struggling with SQL JOIN operations",
-    course: "Database Design Principles",
-    author: "Emily W.",
-    replies: 5,
-    likes: 10,
-    lastActivity: "1 day ago",
-    isHot: false
-  },
-  {
-    id: 4,
-    title: "CSS Flexbox vs Grid - when to use which?",
-    course: "Web Development Fundamentals",
-    author: "Michael C.",
-    replies: 18,
-    likes: 32,
-    lastActivity: "3 hours ago",
-    isHot: true
-  },
-];
+const discussions: {
+  id: number;
+  title: string;
+  course: string;
+  author: string;
+  replies: number;
+  likes: number;
+  lastActivity: string;
+  isHot: boolean;
+}[] = [];
 
 const containerVariants = {
   hidden: { opacity: 0 },
