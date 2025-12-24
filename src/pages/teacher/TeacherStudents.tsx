@@ -7,53 +7,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, User, TrendingUp, Clock, MoreVertical, Users, Sparkles } from "lucide-react";
 import { useState } from "react";
 
-const students = [
-  {
-    id: 1,
-    name: "Alex Johnson",
-    email: "alex.j@email.com",
-    courses: ["Machine Learning", "Python"],
-    progress: 78,
-    lastActive: "2 hours ago",
-    status: "active"
-  },
-  {
-    id: 2,
-    name: "Sarah Williams",
-    email: "sarah.w@email.com",
-    courses: ["Data Science"],
-    progress: 92,
-    lastActive: "1 hour ago",
-    status: "active"
-  },
-  {
-    id: 3,
-    name: "Michael Chen",
-    email: "m.chen@email.com",
-    courses: ["Machine Learning", "Web Dev"],
-    progress: 45,
-    lastActive: "3 days ago",
-    status: "slow"
-  },
-  {
-    id: 4,
-    name: "Emily Davis",
-    email: "e.davis@email.com",
-    courses: ["Python", "Data Science"],
-    progress: 100,
-    lastActive: "5 hours ago",
-    status: "completed"
-  },
-  {
-    id: 5,
-    name: "James Wilson",
-    email: "j.wilson@email.com",
-    courses: ["Web Development"],
-    progress: 32,
-    lastActive: "1 week ago",
-    status: "slow"
-  },
-];
+const students: {
+  id: number;
+  name: string;
+  email: string;
+  courses: string[];
+  progress: number;
+  lastActive: string;
+  status: string;
+}[] = [];
 
 const containerVariants = {
   hidden: { opacity: 0 },

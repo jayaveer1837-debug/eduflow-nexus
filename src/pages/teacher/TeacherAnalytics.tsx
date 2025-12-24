@@ -4,18 +4,13 @@ import { motion } from "framer-motion";
 import { TrendingUp, Users, BookOpen, Target, BarChart3, Sparkles } from "lucide-react";
 
 const overviewStats = [
-  { label: "Total Students", value: "324", change: "+12%", icon: Users, color: "text-primary", bg: "bg-primary/10" },
-  { label: "Course Completions", value: "156", change: "+8%", icon: BookOpen, color: "text-accent", bg: "bg-accent/10" },
-  { label: "Average Quiz Score", value: "78%", change: "+5%", icon: Target, color: "text-primary", bg: "bg-primary/10" },
-  { label: "Engagement Rate", value: "72%", change: "+15%", icon: TrendingUp, color: "text-accent", bg: "bg-accent/10" },
+  { label: "Total Students", value: "0", change: "-", icon: Users, color: "text-primary", bg: "bg-primary/10" },
+  { label: "Course Completions", value: "0", change: "-", icon: BookOpen, color: "text-accent", bg: "bg-accent/10" },
+  { label: "Average Quiz Score", value: "-", change: "-", icon: Target, color: "text-primary", bg: "bg-primary/10" },
+  { label: "Engagement Rate", value: "-", change: "-", icon: TrendingUp, color: "text-accent", bg: "bg-accent/10" },
 ];
 
-const courseStats = [
-  { name: "Machine Learning", students: 89, completionRate: 68, avgScore: 82 },
-  { name: "Python Programming", students: 124, completionRate: 54, avgScore: 75 },
-  { name: "Data Science", students: 67, completionRate: 82, avgScore: 88 },
-  { name: "Web Development", students: 44, completionRate: 45, avgScore: 71 },
-];
+const courseStats: { name: string; students: number; completionRate: number; avgScore: number }[] = [];
 
 const containerVariants = {
   hidden: { opacity: 0 },

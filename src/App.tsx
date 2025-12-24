@@ -23,9 +23,11 @@ import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherAnalytics from "./pages/teacher/TeacherAnalytics";
 import TeacherStudents from "./pages/teacher/TeacherStudents";
 import TeacherQuizCreate from "./pages/teacher/TeacherQuizCreate";
+import TeacherQuizzes from "./pages/teacher/TeacherQuizzes";
 import TeacherCourses from "./pages/teacher/TeacherCourses";
 import TeacherCourseDetail from "./pages/teacher/TeacherCourseDetail";
 import TeacherContentCreate from "./pages/teacher/TeacherContentCreate";
+import TeacherProfile from "./pages/teacher/TeacherProfile";
 
 const queryClient = new QueryClient();
 
@@ -54,11 +56,12 @@ const App = () => (
           <Route path="/teacher/courses" element={<TeacherCourses />} />
           <Route path="/teacher/course/:id" element={<TeacherCourseDetail />} />
           <Route path="/teacher/course/:id/content/new" element={<TeacherContentCreate />} />
-          <Route path="/teacher/upload" element={<TeacherDashboard />} />
-          <Route path="/teacher/quizzes" element={<TeacherQuizCreate />} />
+          <Route path="/teacher/upload" element={<TeacherContentCreate />} />
+          <Route path="/teacher/quizzes" element={<TeacherQuizzes />} />
+          <Route path="/teacher/quiz/create" element={<TeacherQuizCreate />} />
           <Route path="/teacher/students" element={<TeacherStudents />} />
           <Route path="/teacher/analytics" element={<TeacherAnalytics />} />
-          <Route path="/teacher/profile" element={<TeacherDashboard />} />
+          <Route path="/teacher/profile" element={<TeacherProfile />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
