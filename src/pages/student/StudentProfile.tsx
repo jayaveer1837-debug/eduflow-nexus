@@ -34,9 +34,9 @@ const StudentProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const stats = [
-    { label: "Courses Enrolled", value: "5", icon: BookOpen },
-    { label: "Quizzes Completed", value: "23", icon: Trophy },
-    { label: "Member Since", value: "Oct 2024", icon: Calendar },
+    { label: "Courses Enrolled", value: "0", icon: BookOpen },
+    { label: "Quizzes Completed", value: "0", icon: Trophy },
+    { label: "Member Since", value: "-", icon: Calendar },
   ];
 
   return (

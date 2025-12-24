@@ -6,58 +6,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, PlayCircle, Clock, BookOpen, Sparkles } from "lucide-react";
 import { useState } from "react";
 
-const allCourses = [
-  {
-    id: 1,
-    title: "Introduction to Machine Learning",
-    instructor: "Dr. Sarah Chen",
-    progress: 65,
-    totalModules: 12,
-    completedModules: 8,
-    duration: "8 hours",
-    thumbnail: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop"
-  },
-  {
-    id: 2,
-    title: "Web Development Fundamentals",
-    instructor: "Prof. Michael Brown",
-    progress: 42,
-    totalModules: 10,
-    completedModules: 4,
-    duration: "12 hours",
-    thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop"
-  },
-  {
-    id: 3,
-    title: "Data Structures & Algorithms",
-    instructor: "Dr. Emily White",
-    progress: 28,
-    totalModules: 15,
-    completedModules: 4,
-    duration: "15 hours",
-    thumbnail: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=200&fit=crop"
-  },
-  {
-    id: 4,
-    title: "Advanced Python Programming",
-    instructor: "Prof. John Davis",
-    progress: 85,
-    totalModules: 8,
-    completedModules: 7,
-    duration: "6 hours",
-    thumbnail: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=200&fit=crop"
-  },
-  {
-    id: 5,
-    title: "Database Design Principles",
-    instructor: "Dr. Lisa Wong",
-    progress: 10,
-    totalModules: 10,
-    completedModules: 1,
-    duration: "10 hours",
-    thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=200&fit=crop"
-  }
-];
+const allCourses: {
+  id: number;
+  title: string;
+  instructor: string;
+  progress: number;
+  totalModules: number;
+  completedModules: number;
+  duration: string;
+  thumbnail: string;
+}[] = [];
 
 const containerVariants = {
   hidden: { opacity: 0 },

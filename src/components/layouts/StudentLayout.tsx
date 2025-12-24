@@ -23,11 +23,10 @@ interface StudentLayoutProps {
 }
 
 const sidebarItems = [
-  { name: "Dashboard", icon: LayoutDashboard, href: "/student/dashboard" },
   { name: "My Courses", icon: BookOpen, href: "/student/courses" },
   { name: "Progress", icon: TrendingUp, href: "/student/progress" },
   { name: "Quizzes", icon: FileQuestion, href: "/student/quizzes" },
-  { name: "Discussions", icon: MessageCircle, href: "/student/discussions" },
+  { name: "Discussion", icon: MessageCircle, href: "/student/discussions" },
   { name: "Profile", icon: User, href: "/student/profile" },
 ];
 
