@@ -24,7 +24,6 @@ interface TeacherLayoutProps {
 }
 
 const sidebarItems = [
-  { name: "Dashboard", icon: LayoutDashboard, href: "/teacher/dashboard" },
   { name: "My Courses", icon: BookOpen, href: "/teacher/courses" },
   { name: "Upload Content", icon: Upload, href: "/teacher/upload" },
   { name: "Quizzes", icon: FileQuestion, href: "/teacher/quizzes" },
