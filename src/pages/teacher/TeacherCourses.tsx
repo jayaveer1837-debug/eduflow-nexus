@@ -62,41 +62,7 @@ const getYouTubeThumbnail = (videoId: string): string => {
   return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 };
 
-const initialCourses: Course[] = [
-  {
-    id: "1",
-    title: "Introduction to Machine Learning",
-    description: "Learn the fundamentals of ML algorithms and applications",
-    youtubeUrl: "https://www.youtube.com/watch?v=ukzFI9rgwfU",
-    students: 89,
-    modules: 8,
-    status: "published",
-    lastUpdated: "2 hours ago",
-    thumbnail: "https://img.youtube.com/vi/ukzFI9rgwfU/maxresdefault.jpg",
-  },
-  {
-    id: "2",
-    title: "Advanced Python Programming",
-    description: "Master advanced Python concepts and best practices",
-    youtubeUrl: "https://www.youtube.com/watch?v=rfscVS0vtbw",
-    students: 124,
-    modules: 12,
-    status: "published",
-    lastUpdated: "5 hours ago",
-    thumbnail: "https://img.youtube.com/vi/rfscVS0vtbw/maxresdefault.jpg",
-  },
-  {
-    id: "3",
-    title: "Data Science Fundamentals",
-    description: "Comprehensive introduction to data science methodologies",
-    youtubeUrl: "https://www.youtube.com/watch?v=ua-CiDNNj30",
-    students: 67,
-    modules: 6,
-    status: "draft",
-    lastUpdated: "1 day ago",
-    thumbnail: "https://img.youtube.com/vi/ua-CiDNNj30/maxresdefault.jpg",
-  },
-];
+const initialCourses: Course[] = [];
 
 const containerVariants = {
   hidden: { opacity: 0 },
