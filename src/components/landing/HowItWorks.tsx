@@ -55,7 +55,7 @@ export const HowItWorks = () => {
   };
 
   return (
-    <section className="section-padding bg-gradient-hero" ref={sectionRef}>
+    <section className="section-padding bg-muted/50 dark:bg-muted/20" ref={sectionRef}>
       <div className="container-wide">
         <motion.div 
           className="text-center mb-16"
