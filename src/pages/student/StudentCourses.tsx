@@ -9,7 +9,7 @@ import { useState } from "react";
 const allCourses: {
   id: number;
   title: string;
-  instructor: string;
+  teacher: string;
   progress: number;
   totalModules: number;
   completedModules: number;
@@ -53,7 +53,7 @@ const StudentCourses = () => {
 
   const filteredCourses = allCourses.filter(course =>
     course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.instructor.toLowerCase().includes(searchQuery.toLowerCase())
+    course.teacher.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -179,7 +179,7 @@ const StudentCourses = () => {
                         {course.title}
                       </h4>
                       <p className="text-sm text-muted-foreground mb-4">
-                        {course.instructor}
+                        {course.teacher}
                       </p>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
