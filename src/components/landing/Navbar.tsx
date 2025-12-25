@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -52,7 +53,7 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons & Theme Toggle */}
           <div className="hidden md:flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
               <Link to="/login?role=student">Student Login</Link>
@@ -63,6 +64,7 @@ export const Navbar = () => {
             <Button variant="default" size="sm" asChild>
               <Link to="/admin/dashboard">Admin</Link>
             </Button>
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -102,6 +104,10 @@ export const Navbar = () => {
                 <Button variant="default" size="sm" asChild>
                   <Link to="/admin/dashboard">Admin</Link>
                 </Button>
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-sm text-muted-foreground">Theme</span>
+                  <ThemeToggle />
+                </div>
               </div>
             </div>
           </div>
