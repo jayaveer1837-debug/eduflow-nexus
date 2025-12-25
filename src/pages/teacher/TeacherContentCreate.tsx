@@ -222,7 +222,7 @@ const TeacherContentCreate = () => {
       description: `"${moduleTitle}" has been published successfully.`,
     });
 
-    navigate(`/teacher/course/${courseId}`);
+    navigate(`/instructor/course/${courseId}`);
   };
 
   const handleSaveDraft = () => {
@@ -256,7 +256,7 @@ const TeacherContentCreate = () => {
         {/* Header */}
         <motion.div variants={itemVariants}>
           <Link
-            to={`/teacher/course/${courseId}`}
+            to={`/instructor/course/${courseId}`}
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
           >
             <ArrowLeft className="h-4 w-4" />

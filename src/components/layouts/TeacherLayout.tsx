@@ -24,12 +24,12 @@ interface TeacherLayoutProps {
 }
 
 const sidebarItems = [
-  { name: "My Courses", icon: BookOpen, href: "/teacher/courses" },
-  { name: "Upload Content", icon: Upload, href: "/teacher/upload" },
-  { name: "Quizzes", icon: FileQuestion, href: "/teacher/quizzes" },
-  { name: "Students", icon: Users, href: "/teacher/students" },
-  { name: "Analytics", icon: BarChart3, href: "/teacher/analytics" },
-  { name: "Profile", icon: User, href: "/teacher/profile" },
+  { name: "My Courses", icon: BookOpen, href: "/instructor/courses" },
+  { name: "Upload Content", icon: Upload, href: "/instructor/upload" },
+  { name: "Quizzes", icon: FileQuestion, href: "/instructor/quizzes" },
+  { name: "Students", icon: Users, href: "/instructor/students" },
+  { name: "Analytics", icon: BarChart3, href: "/instructor/analytics" },
+  { name: "Profile", icon: User, href: "/instructor/profile" },
 ];
 
 export const TeacherLayout = ({ children }: TeacherLayoutProps) => {

@@ -51,17 +51,17 @@ const App = () => (
           <Route path="/student/discussions" element={<StudentDiscussions />} />
           <Route path="/student/profile" element={<StudentProfile />} />
           
-          {/* Teacher Routes */}
-          <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
-          <Route path="/teacher/courses" element={<TeacherCourses />} />
-          <Route path="/teacher/course/:id" element={<TeacherCourseDetail />} />
-          <Route path="/teacher/course/:id/content/new" element={<TeacherContentCreate />} />
-          <Route path="/teacher/upload" element={<TeacherContentCreate />} />
-          <Route path="/teacher/quizzes" element={<TeacherQuizzes />} />
-          <Route path="/teacher/quiz/create" element={<TeacherQuizCreate />} />
-          <Route path="/teacher/students" element={<TeacherStudents />} />
-          <Route path="/teacher/analytics" element={<TeacherAnalytics />} />
-          <Route path="/teacher/profile" element={<TeacherProfile />} />
+          {/* Instructor Routes */}
+          <Route path="/instructor/dashboard" element={<TeacherDashboard />} />
+          <Route path="/instructor/courses" element={<TeacherCourses />} />
+          <Route path="/instructor/course/:id" element={<TeacherCourseDetail />} />
+          <Route path="/instructor/course/:id/content/new" element={<TeacherContentCreate />} />
+          <Route path="/instructor/upload" element={<TeacherContentCreate />} />
+          <Route path="/instructor/quizzes" element={<TeacherQuizzes />} />
+          <Route path="/instructor/quiz/create" element={<TeacherQuizCreate />} />
+          <Route path="/instructor/students" element={<TeacherStudents />} />
+          <Route path="/instructor/analytics" element={<TeacherAnalytics />} />
+          <Route path="/instructor/profile" element={<TeacherProfile />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />

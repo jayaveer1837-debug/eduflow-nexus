@@ -272,7 +272,7 @@ const TeacherCourses = () => {
                       {course.status}
                     </Badge>
                   </a>
-                  <Link to={`/teacher/course/${course.id}`}>
+                  <Link to={`/instructor/course/${course.id}`}>
                     <CardContent className="p-4 space-y-3">
                       <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
                         {course.title}

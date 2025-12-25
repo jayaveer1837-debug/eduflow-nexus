@@ -37,7 +37,7 @@ const Login = () => {
           .maybeSingle()
           .then(({ data: profile }) => {
             const userRole = profile?.role || 'student';
-            navigate(userRole === 'student' ? '/student/dashboard' : '/teacher/dashboard');
+            navigate(userRole === 'student' ? '/student/dashboard' : '/instructor/dashboard');
           });
       }
     });
@@ -82,7 +82,7 @@ const Login = () => {
       });
 
       const userRole = profile?.role || 'student';
-      navigate(userRole === 'student' ? '/student/dashboard' : '/teacher/dashboard');
+      navigate(userRole === 'student' ? '/student/dashboard' : '/instructor/dashboard');
     } catch (error: any) {
       toast({
         title: "Login failed",
@@ -142,7 +142,7 @@ const Login = () => {
           description: `Welcome to EduNexus, ${name}!`,
         });
 
-        navigate(selectedRole === "student" ? "/student/dashboard" : "/teacher/dashboard");
+        navigate(selectedRole === "student" ? "/student/dashboard" : "/instructor/dashboard");
       }
     } catch (error: any) {
       let message = error.message || "Something went wrong";
@@ -226,7 +226,7 @@ const Login = () => {
                 }`} />
                 <p className={`text-sm font-medium ${
                   selectedRole === "teacher" ? "text-accent" : "text-muted-foreground"
-                }`}>Teacher</p>
+                }`}>Instructor</p>
               </button>
             </div>
 
@@ -300,7 +300,7 @@ const Login = () => {
                     className="w-full"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Creating account..." : `Sign up as ${selectedRole === "student" ? "Student" : "Teacher"}`}
+                    {isLoading ? "Creating account..." : `Sign up as ${selectedRole === "student" ? "Student" : "Instructor"}`}
                   </Button>
                 </motion.form>
               ) : (
@@ -357,7 +357,7 @@ const Login = () => {
                     className="w-full"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Signing in..." : `Sign in as ${selectedRole === "student" ? "Student" : "Teacher"}`}
+                    {isLoading ? "Signing in..." : `Sign in as ${selectedRole === "student" ? "Student" : "Instructor"}`}
                   </Button>
                 </motion.form>
               )}
