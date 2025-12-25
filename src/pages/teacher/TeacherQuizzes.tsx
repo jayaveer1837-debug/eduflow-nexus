@@ -64,7 +64,7 @@ const TeacherQuizzes = () => {
             </p>
           </div>
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Link to="/teacher/quiz/create">
+            <Link to="/instructor/quiz/create">
               <Button className="gap-2">
                 <Plus className="h-4 w-4" />
                 Create Quiz
@@ -132,7 +132,7 @@ const TeacherQuizzes = () => {
                 : "Create your first quiz to test your students' knowledge and track their progress."}
             </p>
             {!searchQuery && (
-              <Link to="/teacher/quiz/create">
+              <Link to="/instructor/quiz/create">
                 <Button className="gap-2">
                   <Plus className="h-4 w-4" />
                   Create Your First Quiz

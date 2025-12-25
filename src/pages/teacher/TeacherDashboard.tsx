@@ -119,7 +119,7 @@ const TeacherDashboard = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Button variant="accent" asChild>
-              <Link to="/teacher/courses">
+              <Link to="/instructor/courses">
                 <Plus className="w-4 h-4" />
                 Create Course
               </Link>
@@ -179,7 +179,7 @@ const TeacherDashboard = () => {
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-foreground">Your Courses</h3>
               <Button variant="ghost" size="sm" asChild className="group">
-                <Link to="/teacher/courses">
+                <Link to="/instructor/courses">
                   View all
                   <motion.div
                     className="ml-1"
@@ -321,9 +321,9 @@ const TeacherDashboard = () => {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {[
-                    { to: "/teacher/upload", icon: Plus, text: "Upload Content" },
-                    { to: "/teacher/quizzes", icon: FileQuestion, text: "Create Quiz" },
-                    { to: "/teacher/analytics", icon: TrendingUp, text: "View Analytics" },
+                    { to: "/instructor/upload", icon: Plus, text: "Upload Content" },
+                    { to: "/instructor/quizzes", icon: FileQuestion, text: "Create Quiz" },
+                    { to: "/instructor/analytics", icon: TrendingUp, text: "View Analytics" },
                   ].map((action, index) => (
                     <motion.div
                       key={index}

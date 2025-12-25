@@ -123,7 +123,7 @@ const TeacherCourseDetail = () => {
         {/* Back Button & Header */}
         <motion.div variants={itemVariants}>
           <Link
-            to="/teacher/courses"
+            to="/instructor/courses"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -157,7 +157,7 @@ const TeacherCourseDetail = () => {
               </Button>
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button asChild className="gap-2">
-                  <Link to={`/teacher/course/${id}/content/new`}>
+                  <Link to={`/instructor/course/${id}/content/new`}>
                     <Plus className="h-4 w-4" />
                     Add Learning Content
                   </Link>
@@ -330,7 +330,7 @@ const TeacherCourseDetail = () => {
                 Add your first learning module with video and quiz
               </p>
               <Button asChild>
-                <Link to={`/teacher/course/${id}/content/new`}>
+                <Link to={`/instructor/course/${id}/content/new`}>
                   <Plus className="h-4 w-4 mr-2" />
                   Add Learning Content
                 </Link>
@@ -350,7 +350,7 @@ const TeacherCourseDetail = () => {
                   asChild
                   className="border-dashed border-2 gap-2"
                 >
-                  <Link to={`/teacher/course/${id}/content/new`}>
+                  <Link to={`/instructor/course/${id}/content/new`}>
                     <Plus className="h-5 w-5" />
                     Add Another Module
                   </Link>
