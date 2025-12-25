@@ -86,7 +86,8 @@ export default function AdminDashboard() {
       change: "+12.5%",
       trend: "up",
       icon: Users,
-      bgColor: "bg-primary",
+      iconBg: "bg-primary",
+      iconFg: "text-primary-foreground",
     },
     {
       title: "Active Students",
@@ -94,7 +95,8 @@ export default function AdminDashboard() {
       change: "+8.2%",
       trend: "up",
       icon: GraduationCap,
-      bgColor: "bg-accent",
+      iconBg: "bg-accent",
+      iconFg: "text-accent-foreground",
     },
     {
       title: "Total Courses",
@@ -102,7 +104,8 @@ export default function AdminDashboard() {
       change: "+5.1%",
       trend: "up",
       icon: BookOpen,
-      bgColor: "bg-emerald-500",
+      iconBg: "bg-success",
+      iconFg: "text-success-foreground",
     },
     {
       title: "Revenue",
@@ -110,14 +113,33 @@ export default function AdminDashboard() {
       change: "+18.3%",
       trend: "up",
       icon: DollarSign,
-      bgColor: "bg-amber-500",
+      iconBg: "bg-warning",
+      iconFg: "text-warning-foreground",
     },
   ];
 
   const liveStats = [
-    { label: "Active Now", value: stats.activeNow, icon: Activity, bgColor: "bg-primary" },
-    { label: "New Signups Today", value: stats.newSignups, icon: UserPlus, bgColor: "bg-accent" },
-    { label: "Avg. Session", value: `${stats.avgSessionTime}m`, icon: Clock, bgColor: "bg-emerald-500" },
+    {
+      label: "Active Now",
+      value: stats.activeNow,
+      icon: Activity,
+      iconBg: "bg-primary",
+      iconFg: "text-primary-foreground",
+    },
+    {
+      label: "New Signups Today",
+      value: stats.newSignups,
+      icon: UserPlus,
+      iconBg: "bg-accent",
+      iconFg: "text-accent-foreground",
+    },
+    {
+      label: "Avg. Session",
+      value: `${stats.avgSessionTime}m`,
+      icon: Clock,
+      iconBg: "bg-success",
+      iconFg: "text-success-foreground",
+    },
   ];
 
   return (
@@ -152,8 +174,8 @@ export default function AdminDashboard() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             {liveStats.map((stat, index) => (
               <div key={index} className="flex items-center gap-3">
-                <div className={`w-12 h-12 rounded-xl ${stat.bgColor} flex items-center justify-center shadow-lg`}>
-                  <stat.icon className="w-6 h-6 text-white" />
+                <div className={`w-12 h-12 rounded-xl ${stat.iconBg} flex items-center justify-center shadow-lg ring-1 ring-border/20`}>
+                  <stat.icon className={`w-6 h-6 ${stat.iconFg}`} strokeWidth={2.5} />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{stat.label}</p>
@@ -205,8 +227,8 @@ export default function AdminDashboard() {
                         <span className="text-sm text-muted-foreground">vs last month</span>
                       </div>
                     </div>
-                    <div className={`w-14 h-14 rounded-xl ${stat.bgColor} flex items-center justify-center shadow-lg`}>
-                      <stat.icon className="w-7 h-7 text-white" />
+                    <div className={`w-14 h-14 rounded-xl ${stat.iconBg} flex items-center justify-center shadow-lg ring-1 ring-border/20`}>
+                      <stat.icon className={`w-7 h-7 ${stat.iconFg}`} strokeWidth={2.5} />
                     </div>
                   </div>
                 </CardContent>
