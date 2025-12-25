@@ -32,6 +32,7 @@ import TeacherProfile from "./pages/teacher/TeacherProfile";
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
+import AdminInstructors from "./pages/admin/AdminInstructors";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,7 @@ const App = () => (
           {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/instructors" element={<AdminInstructors />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />

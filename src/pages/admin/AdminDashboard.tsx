@@ -86,7 +86,7 @@ export default function AdminDashboard() {
       change: "+12.5%",
       trend: "up",
       icon: Users,
-      color: "from-primary to-primary/70",
+      bgColor: "bg-primary",
     },
     {
       title: "Active Students",
@@ -94,7 +94,7 @@ export default function AdminDashboard() {
       change: "+8.2%",
       trend: "up",
       icon: GraduationCap,
-      color: "from-accent to-accent/70",
+      bgColor: "bg-accent",
     },
     {
       title: "Total Courses",
@@ -102,7 +102,7 @@ export default function AdminDashboard() {
       change: "+5.1%",
       trend: "up",
       icon: BookOpen,
-      color: "from-emerald-500 to-emerald-400",
+      bgColor: "bg-emerald-500",
     },
     {
       title: "Revenue",
@@ -110,14 +110,14 @@ export default function AdminDashboard() {
       change: "+18.3%",
       trend: "up",
       icon: DollarSign,
-      color: "from-amber-500 to-amber-400",
+      bgColor: "bg-amber-500",
     },
   ];
 
   const liveStats = [
-    { label: "Active Now", value: stats.activeNow, icon: Activity },
-    { label: "New Signups Today", value: stats.newSignups, icon: UserPlus },
-    { label: "Avg. Session", value: `${stats.avgSessionTime}m`, icon: Clock },
+    { label: "Active Now", value: stats.activeNow, icon: Activity, bgColor: "bg-primary" },
+    { label: "New Signups Today", value: stats.newSignups, icon: UserPlus, bgColor: "bg-accent" },
+    { label: "Avg. Session", value: `${stats.avgSessionTime}m`, icon: Clock, bgColor: "bg-emerald-500" },
   ];
 
   return (
@@ -152,8 +152,8 @@ export default function AdminDashboard() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             {liveStats.map((stat, index) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <stat.icon className="w-5 h-5 text-primary" />
+                <div className={`w-12 h-12 rounded-xl ${stat.bgColor} flex items-center justify-center shadow-lg`}>
+                  <stat.icon className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{stat.label}</p>
@@ -181,7 +181,6 @@ export default function AdminDashboard() {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="relative overflow-hidden hover-lift">
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-5`} />
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div>
@@ -196,18 +195,18 @@ export default function AdminDashboard() {
                       </motion.p>
                       <div className="flex items-center gap-1 mt-2">
                         {stat.trend === "up" ? (
-                          <ArrowUpRight className="w-4 h-4 text-emerald-500" />
+                          <ArrowUpRight className="w-4 h-4 text-emerald-600" />
                         ) : (
                           <ArrowDownRight className="w-4 h-4 text-red-500" />
                         )}
-                        <span className={`text-sm font-medium ${stat.trend === "up" ? "text-emerald-500" : "text-red-500"}`}>
+                        <span className={`text-sm font-medium ${stat.trend === "up" ? "text-emerald-600" : "text-red-500"}`}>
                           {stat.change}
                         </span>
                         <span className="text-sm text-muted-foreground">vs last month</span>
                       </div>
                     </div>
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
-                      <stat.icon className="w-6 h-6 text-white" />
+                    <div className={`w-14 h-14 rounded-xl ${stat.bgColor} flex items-center justify-center shadow-lg`}>
+                      <stat.icon className="w-7 h-7 text-white" />
                     </div>
                   </div>
                 </CardContent>
