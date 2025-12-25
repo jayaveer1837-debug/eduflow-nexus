@@ -35,6 +35,7 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminInstructors from "./pages/admin/AdminInstructors";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => (
           <Route path="/admin/instructors" element={<AdminInstructors />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
