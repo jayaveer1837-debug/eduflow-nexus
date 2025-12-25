@@ -57,8 +57,11 @@ export const Navbar = () => {
             <Button variant="ghost" size="sm" asChild>
               <Link to="/login?role=student">Student Login</Link>
             </Button>
-            <Button variant="default" size="sm" asChild>
+            <Button variant="ghost" size="sm" asChild>
               <Link to="/login?role=teacher">Instructor Login</Link>
+            </Button>
+            <Button variant="default" size="sm" asChild>
+              <Link to="/admin/dashboard">Admin</Link>
             </Button>
           </div>
 
@@ -93,8 +96,11 @@ export const Navbar = () => {
                 <Button variant="outline" size="sm" asChild>
                   <Link to="/login?role=student">Student Login</Link>
                 </Button>
-                <Button variant="default" size="sm" asChild>
+                <Button variant="outline" size="sm" asChild>
                   <Link to="/login?role=teacher">Instructor Login</Link>
+                </Button>
+                <Button variant="default" size="sm" asChild>
+                  <Link to="/admin/dashboard">Admin</Link>
                 </Button>
               </div>
             </div>

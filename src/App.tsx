@@ -29,6 +29,9 @@ import TeacherCourseDetail from "./pages/teacher/TeacherCourseDetail";
 import TeacherContentCreate from "./pages/teacher/TeacherContentCreate";
 import TeacherProfile from "./pages/teacher/TeacherProfile";
 
+// Admin Pages
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -62,6 +65,9 @@ const App = () => (
           <Route path="/instructor/students" element={<TeacherStudents />} />
           <Route path="/instructor/analytics" element={<TeacherAnalytics />} />
           <Route path="/instructor/profile" element={<TeacherProfile />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
