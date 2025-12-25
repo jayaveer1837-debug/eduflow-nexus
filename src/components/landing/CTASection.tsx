@@ -63,7 +63,7 @@ export const CTASection = () => {
             asChild
           >
             <Link to="/login?role=teacher">
-              Become an Instructor
+              Become a Teacher
             </Link>
           </Button>
         </motion.div>
