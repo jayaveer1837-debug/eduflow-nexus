@@ -18,7 +18,7 @@ const enrolledCourses = [
   {
     id: 1,
     title: "Introduction to Machine Learning",
-    teacher: "Dr. Sarah Chen",
+    instructor: "Dr. Sarah Chen",
     progress: 65,
     totalModules: 12,
     completedModules: 8,
@@ -27,7 +27,7 @@ const enrolledCourses = [
   {
     id: 2,
     title: "Web Development Fundamentals",
-    teacher: "Prof. Michael Brown",
+    instructor: "Prof. Michael Brown",
     progress: 42,
     totalModules: 10,
     completedModules: 4,
@@ -36,7 +36,7 @@ const enrolledCourses = [
   {
     id: 3,
     title: "Data Structures & Algorithms",
-    teacher: "Dr. Emily White",
+    instructor: "Dr. Emily White",
     progress: 28,
     totalModules: 15,
     completedModules: 4,
@@ -224,7 +224,7 @@ const StudentDashboard = () => {
                         {course.title}
                       </h4>
                       <p className="text-sm text-muted-foreground mb-4">
-                        {course.teacher}
+                        {course.instructor}
                       </p>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">

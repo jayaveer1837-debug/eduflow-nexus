@@ -43,7 +43,7 @@ export const HeroSection = () => {
             className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto"
           >
             Experience personalized education with AI-driven insights, interactive courses, 
-            and seamless collaboration between teachers and students.
+            and seamless collaboration between instructors and students.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -80,7 +80,7 @@ export const HeroSection = () => {
             <div className="w-px h-12 bg-border" />
             <div>
               <p className="text-2xl md:text-3xl font-bold text-foreground">500+</p>
-              <p className="text-sm text-muted-foreground">Expert Teachers</p>
+              <p className="text-sm text-muted-foreground">Expert Instructors</p>
             </div>
             <div className="w-px h-12 bg-border" />
             <div>

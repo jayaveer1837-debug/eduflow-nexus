@@ -278,7 +278,7 @@ export const TeacherLayout = ({ children }: TeacherLayoutProps) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                Teacher Dashboard
+                Instructor Dashboard
               </motion.h1>
             </div>
 

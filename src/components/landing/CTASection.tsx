@@ -36,7 +36,7 @@ export const CTASection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Join thousands of students and teachers already using EduNexus 
+          Join thousands of students and instructors already using EduNexus 
           for a smarter, more personalized learning experience.
         </motion.p>
 
@@ -63,7 +63,7 @@ export const CTASection = () => {
             asChild
           >
             <Link to="/login?role=teacher">
-              Become a Teacher
+              Become an Instructor
             </Link>
           </Button>
         </motion.div>
