@@ -297,33 +297,47 @@ export default function AdminAnalytics() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={categoryData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={100}
-                      paddingAngle={2}
-                      dataKey="value"
-                      label={({ name, value }) => `${name}: ${value}%`}
-                      labelLine={false}
-                    >
-                      {categoryData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "hsl(0, 0%, 100%)",
-                        border: "1px solid hsl(210, 20%, 90%)",
-                        borderRadius: "8px",
-                      }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="h-[300px] flex flex-col">
+                <div className="flex-1">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={categoryData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={50}
+                        outerRadius={80}
+                        paddingAngle={3}
+                        dataKey="value"
+                      >
+                        {categoryData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "hsl(0, 0%, 100%)",
+                          border: "1px solid hsl(210, 20%, 90%)",
+                          borderRadius: "8px",
+                        }}
+                        formatter={(value: number) => [`${value}%`, "Share"]}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+                {/* Legend below chart */}
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {categoryData.map((item, index) => (
+                    <div key={index} className="flex items-center gap-2 text-sm">
+                      <div 
+                        className="w-3 h-3 rounded-full flex-shrink-0" 
+                        style={{ backgroundColor: item.color }}
+                      />
+                      <span className="text-muted-foreground truncate">{item.name}</span>
+                      <span className="font-semibold text-foreground ml-auto">{item.value}%</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </CardContent>
           </Card>
