@@ -165,13 +165,13 @@ export default function AdminCourses() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "published":
-        return <Badge className="bg-emerald-500/15 text-emerald-700 border-emerald-300"><CheckCircle className="w-3 h-3 mr-1" />Published</Badge>;
+        return <Badge className="bg-success/15 text-success border-success/30"><CheckCircle className="w-3 h-3 mr-1" />Published</Badge>;
       case "pending":
-        return <Badge className="bg-amber-500/15 text-amber-700 border-amber-300"><Clock className="w-3 h-3 mr-1" />Pending</Badge>;
+        return <Badge className="bg-warning/15 text-warning border-warning/30"><Clock className="w-3 h-3 mr-1" />Pending</Badge>;
       case "draft":
         return <Badge variant="outline" className="text-muted-foreground border-border bg-muted/50"><Edit className="w-3 h-3 mr-1" />Draft</Badge>;
       case "rejected":
-        return <Badge className="bg-red-500/15 text-red-700 border-red-300"><XCircle className="w-3 h-3 mr-1" />Rejected</Badge>;
+        return <Badge className="bg-destructive/15 text-destructive border-destructive/30"><XCircle className="w-3 h-3 mr-1" />Rejected</Badge>;
       default:
         return null;
     }
@@ -191,11 +191,11 @@ export default function AdminCourses() {
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {[
-            { label: "Total Courses", value: stats.total, icon: BookOpen, bgColor: "bg-primary" },
-            { label: "Published", value: stats.published, icon: CheckCircle, bgColor: "bg-emerald-500" },
-            { label: "Pending Review", value: stats.pending, icon: Clock, bgColor: "bg-amber-500" },
-            { label: "Enrollments", value: stats.totalEnrollments.toLocaleString(), icon: Users, bgColor: "bg-accent" },
-            { label: "Revenue", value: `$${(stats.totalRevenue / 1000).toFixed(0)}K`, icon: DollarSign, bgColor: "bg-purple-500" },
+            { label: "Total Courses", value: stats.total, icon: BookOpen, iconBg: "bg-primary", iconFg: "text-primary-foreground" },
+            { label: "Published", value: stats.published, icon: CheckCircle, iconBg: "bg-success", iconFg: "text-success-foreground" },
+            { label: "Pending Review", value: stats.pending, icon: Clock, iconBg: "bg-warning", iconFg: "text-warning-foreground" },
+            { label: "Enrollments", value: stats.totalEnrollments.toLocaleString(), icon: Users, iconBg: "bg-accent", iconFg: "text-accent-foreground" },
+            { label: "Revenue", value: `$${(stats.totalRevenue / 1000).toFixed(0)}K`, icon: DollarSign, iconBg: "bg-success", iconFg: "text-success-foreground" },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -206,8 +206,8 @@ export default function AdminCourses() {
               <Card className="hover-lift">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className={`w-12 h-12 rounded-xl ${stat.bgColor} flex items-center justify-center shadow-lg`}>
-                      <stat.icon className="w-6 h-6 text-white" />
+                    <div className={`w-12 h-12 rounded-xl ${stat.iconBg} flex items-center justify-center shadow-lg ring-1 ring-border/20`}>
+                      <stat.icon className={`w-6 h-6 ${stat.iconFg}`} strokeWidth={2.5} />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-foreground">{stat.value}</p>

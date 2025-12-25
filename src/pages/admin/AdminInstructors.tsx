@@ -127,11 +127,11 @@ export default function AdminInstructors() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-emerald-500/15 text-emerald-700 border-emerald-300"><CheckCircle className="w-3 h-3 mr-1" />Active</Badge>;
+        return <Badge className="bg-success/15 text-success border-success/30"><CheckCircle className="w-3 h-3 mr-1" />Active</Badge>;
       case "inactive":
         return <Badge variant="outline" className="text-muted-foreground border-border bg-muted/50"><XCircle className="w-3 h-3 mr-1" />Inactive</Badge>;
       case "pending":
-        return <Badge className="bg-amber-500/15 text-amber-700 border-amber-300"><Award className="w-3 h-3 mr-1" />Pending</Badge>;
+        return <Badge className="bg-warning/15 text-warning border-warning/30"><Award className="w-3 h-3 mr-1" />Pending</Badge>;
       default:
         return null;
     }
@@ -151,11 +151,11 @@ export default function AdminInstructors() {
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {[
-            { label: "Total Instructors", value: stats.total, icon: Users, color: "bg-primary text-primary-foreground" },
-            { label: "Active", value: stats.active, icon: CheckCircle, color: "bg-emerald-500 text-white" },
-            { label: "Total Courses", value: stats.totalCourses, icon: BookOpen, color: "bg-accent text-accent-foreground" },
-            { label: "Total Revenue", value: `$${(stats.totalRevenue / 1000).toFixed(0)}K`, icon: DollarSign, color: "bg-amber-500 text-white" },
-            { label: "Avg. Rating", value: stats.avgRating, icon: Star, color: "bg-purple-500 text-white" },
+            { label: "Total Instructors", value: stats.total, icon: Users, iconBg: "bg-primary", iconFg: "text-primary-foreground" },
+            { label: "Active", value: stats.active, icon: CheckCircle, iconBg: "bg-success", iconFg: "text-success-foreground" },
+            { label: "Total Courses", value: stats.totalCourses, icon: BookOpen, iconBg: "bg-accent", iconFg: "text-accent-foreground" },
+            { label: "Total Revenue", value: `$${(stats.totalRevenue / 1000).toFixed(0)}K`, icon: DollarSign, iconBg: "bg-warning", iconFg: "text-warning-foreground" },
+            { label: "Avg. Rating", value: stats.avgRating, icon: Star, iconBg: "bg-primary", iconFg: "text-primary-foreground" },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -166,8 +166,8 @@ export default function AdminInstructors() {
               <Card className="hover-lift">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className={`w-12 h-12 rounded-xl ${stat.color} flex items-center justify-center shadow-lg`}>
-                      <stat.icon className="w-6 h-6" />
+                    <div className={`w-12 h-12 rounded-xl ${stat.iconBg} flex items-center justify-center shadow-lg ring-1 ring-border/20`}>
+                      <stat.icon className={`w-6 h-6 ${stat.iconFg}`} strokeWidth={2.5} />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-foreground">{stat.value}</p>
