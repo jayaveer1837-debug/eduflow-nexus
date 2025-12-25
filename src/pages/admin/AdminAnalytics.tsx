@@ -109,12 +109,12 @@ export default function AdminAnalytics() {
   const [timeRange, setTimeRange] = useState("12m");
 
   const kpiCards = [
-    { title: "Total Revenue", value: "$981K", change: "+24.5%", trend: "up", icon: DollarSign, bgColor: "bg-emerald-500" },
-    { title: "Total Users", value: "17,435", change: "+18.2%", trend: "up", icon: Users, bgColor: "bg-primary" },
-    { title: "Course Enrollments", value: "16,300", change: "+32.1%", trend: "up", icon: GraduationCap, bgColor: "bg-accent" },
-    { title: "Active Courses", value: "520", change: "+12.8%", trend: "up", icon: BookOpen, bgColor: "bg-purple-500" },
-    { title: "Avg. Completion", value: "71.3%", change: "+5.2%", trend: "up", icon: Target, bgColor: "bg-amber-500" },
-    { title: "Avg. Rating", value: "4.7", change: "+0.3", trend: "up", icon: Award, bgColor: "bg-pink-500" },
+    { title: "Total Revenue", value: "$981K", change: "+24.5%", trend: "up", icon: DollarSign, iconBg: "bg-success", iconFg: "text-success-foreground" },
+    { title: "Total Users", value: "17,435", change: "+18.2%", trend: "up", icon: Users, iconBg: "bg-primary", iconFg: "text-primary-foreground" },
+    { title: "Course Enrollments", value: "16,300", change: "+32.1%", trend: "up", icon: GraduationCap, iconBg: "bg-accent", iconFg: "text-accent-foreground" },
+    { title: "Active Courses", value: "520", change: "+12.8%", trend: "up", icon: BookOpen, iconBg: "bg-primary", iconFg: "text-primary-foreground" },
+    { title: "Avg. Completion", value: "71.3%", change: "+5.2%", trend: "up", icon: Target, iconBg: "bg-warning", iconFg: "text-warning-foreground" },
+    { title: "Avg. Rating", value: "4.7", change: "+0.3", trend: "up", icon: Award, iconBg: "bg-accent", iconFg: "text-accent-foreground" },
   ];
 
   return (
@@ -153,8 +153,8 @@ export default function AdminAnalytics() {
             >
               <Card className="hover-lift">
                 <CardContent className="p-4">
-                  <div className={`w-10 h-10 rounded-xl ${kpi.bgColor} flex items-center justify-center mb-3 shadow-lg`}>
-                    <kpi.icon className="w-5 h-5 text-white" />
+                  <div className={`w-11 h-11 rounded-xl ${kpi.iconBg} flex items-center justify-center mb-3 shadow-lg ring-1 ring-border/20`}>
+                    <kpi.icon className={`w-5 h-5 ${kpi.iconFg}`} strokeWidth={2.5} />
                   </div>
                   <p className="text-2xl font-bold text-foreground">{kpi.value}</p>
                   <p className="text-xs text-muted-foreground mb-1">{kpi.title}</p>

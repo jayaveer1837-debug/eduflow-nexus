@@ -157,11 +157,11 @@ export default function AdminUsers() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge variant="outline" className="text-emerald-600 border-emerald-200 bg-emerald-50"><CheckCircle className="w-3 h-3 mr-1" />Active</Badge>;
+        return <Badge className="bg-success/15 text-success border-success/30"><CheckCircle className="w-3 h-3 mr-1" />Active</Badge>;
       case "inactive":
         return <Badge variant="outline" className="text-muted-foreground border-border"><XCircle className="w-3 h-3 mr-1" />Inactive</Badge>;
       case "suspended":
-        return <Badge variant="outline" className="text-red-600 border-red-200 bg-red-50"><XCircle className="w-3 h-3 mr-1" />Suspended</Badge>;
+        return <Badge className="bg-destructive/15 text-destructive border-destructive/30"><XCircle className="w-3 h-3 mr-1" />Suspended</Badge>;
       default:
         return null;
     }
@@ -185,10 +185,10 @@ export default function AdminUsers() {
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: "Total Users", value: stats.total, icon: Users, color: "from-primary to-primary/70" },
-            { label: "Students", value: stats.students, icon: GraduationCap, color: "from-accent to-accent/70" },
-            { label: "Instructors", value: stats.instructors, icon: BookOpen, color: "from-emerald-500 to-emerald-400" },
-            { label: "Active Users", value: stats.active, icon: CheckCircle, color: "from-amber-500 to-amber-400" },
+            { label: "Total Users", value: stats.total, icon: Users, iconBg: "bg-primary", iconFg: "text-primary-foreground" },
+            { label: "Students", value: stats.students, icon: GraduationCap, iconBg: "bg-accent", iconFg: "text-accent-foreground" },
+            { label: "Instructors", value: stats.instructors, icon: BookOpen, iconBg: "bg-success", iconFg: "text-success-foreground" },
+            { label: "Active Users", value: stats.active, icon: CheckCircle, iconBg: "bg-warning", iconFg: "text-warning-foreground" },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -196,11 +196,11 @@ export default function AdminUsers() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card>
+              <Card className="hover-lift">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
-                      <stat.icon className="w-5 h-5 text-white" />
+                    <div className={`w-12 h-12 rounded-xl ${stat.iconBg} flex items-center justify-center shadow-lg ring-1 ring-border/20`}>
+                      <stat.icon className={`w-6 h-6 ${stat.iconFg}`} strokeWidth={2.5} />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-foreground">{stat.value}</p>
