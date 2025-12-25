@@ -64,8 +64,8 @@ const TeacherProfile = () => {
                     <Camera className="w-5 h-5" />
                   </motion.button>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-1">Teacher Name</h3>
-                <p className="text-muted-foreground text-sm">teacher@example.com</p>
+                <h3 className="text-xl font-semibold text-foreground mb-1">Instructor Name</h3>
+                <p className="text-muted-foreground text-sm">instructor@example.com</p>
                 <div className="mt-4 pt-4 border-t border-border">
                   <p className="text-sm text-muted-foreground">
                     Member since January 2024

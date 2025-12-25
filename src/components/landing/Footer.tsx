@@ -5,7 +5,7 @@ const quickLinks = [
   { name: "About", href: "#about" },
   { name: "Features", href: "#features" },
   { name: "Student Login", href: "/login?role=student" },
-  { name: "Teacher Login", href: "/login?role=teacher" },
+  { name: "Instructor Login", href: "/login?role=teacher" },
 ];
 
 export const Footer = () => {

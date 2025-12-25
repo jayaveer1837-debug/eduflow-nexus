@@ -12,7 +12,7 @@ const studentBenefits = [
   "Discussion forums"
 ];
 
-const teacherCapabilities = [
+const instructorCapabilities = [
   "Course creation tools",
   "Student analytics",
   "Content management",
@@ -84,7 +84,7 @@ export const RoleSplitSection = () => {
             </Card>
           </motion.div>
 
-          {/* Teacher Card */}
+          {/* Instructor Card */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
@@ -97,13 +97,13 @@ export const RoleSplitSection = () => {
                     <BookMarked className="w-8 h-8 text-accent" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-foreground">For Teachers</h3>
+                    <h3 className="text-2xl font-bold text-foreground">For Instructors</h3>
                     <p className="text-muted-foreground">Empower your students</p>
                   </div>
                 </div>
 
                 <ul className="space-y-3 mb-8">
-                  {teacherCapabilities.map((capability, index) => (
+                  {instructorCapabilities.map((capability, index) => (
                     <motion.li 
                       key={index} 
                       className="flex items-center gap-3"
@@ -119,7 +119,7 @@ export const RoleSplitSection = () => {
 
                 <Button variant="accent" className="w-full" asChild>
                   <Link to="/login?role=teacher">
-                    Continue as Teacher
+                    Continue as Instructor
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </Button>
