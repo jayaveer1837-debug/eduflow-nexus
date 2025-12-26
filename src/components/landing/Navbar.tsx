@@ -56,10 +56,10 @@ export const Navbar = () => {
           {/* Auth Buttons & Theme Toggle */}
           <div className="hidden md:flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
-              <Link to="/login?role=student">Student Login</Link>
+              <Link to="/student/login">Student Login</Link>
             </Button>
             <Button variant="ghost" size="sm" asChild>
-              <Link to="/login?role=teacher">Instructor Login</Link>
+              <Link to="/instructor/login">Instructor Login</Link>
             </Button>
             <Button variant="default" size="sm" asChild>
               <Link to="/admin/dashboard">Admin</Link>
@@ -96,10 +96,10 @@ export const Navbar = () => {
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border mt-2">
                 <Button variant="outline" size="sm" asChild>
-                  <Link to="/login?role=student">Student Login</Link>
+                  <Link to="/student/login">Student Login</Link>
                 </Button>
                 <Button variant="outline" size="sm" asChild>
-                  <Link to="/login?role=teacher">Instructor Login</Link>
+                  <Link to="/instructor/login">Instructor Login</Link>
                 </Button>
                 <Button variant="default" size="sm" asChild>
                   <Link to="/admin/dashboard">Admin</Link>

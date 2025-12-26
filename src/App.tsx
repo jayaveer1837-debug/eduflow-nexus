@@ -7,7 +7,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 
 // Pages
 import Index from "./pages/Index";
-import Login from "./pages/Login";
+import StudentLogin from "./pages/StudentLogin";
+import InstructorLogin from "./pages/InstructorLogin";
 import NotFound from "./pages/NotFound";
 
 // Student Pages
@@ -50,7 +51,8 @@ const App = () => (
           <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/student/login" element={<StudentLogin />} />
+          <Route path="/instructor/login" element={<InstructorLogin />} />
           
           {/* Student Routes */}
           <Route path="/student/dashboard" element={<StudentDashboard />} />
