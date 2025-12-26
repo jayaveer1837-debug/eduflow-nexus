@@ -35,6 +35,7 @@ import TeacherProfile from "./pages/teacher/TeacherProfile";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminInstructors from "./pages/admin/AdminInstructors";
+import AdminInstructorRequests from "./pages/admin/AdminInstructorRequests";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminSettings from "./pages/admin/AdminSettings";
@@ -75,8 +76,9 @@ const App = () => (
           <Route path="/instructor/analytics" element={<TeacherAnalytics />} />
           <Route path="/instructor/profile" element={<TeacherProfile />} />
           
-          {/* Admin Routes */}
+{/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/instructor-requests" element={<AdminInstructorRequests />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/instructors" element={<AdminInstructors />} />
           <Route path="/admin/courses" element={<AdminCourses />} />

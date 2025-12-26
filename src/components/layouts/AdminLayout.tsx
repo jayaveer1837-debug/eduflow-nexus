@@ -11,6 +11,7 @@ import {
   GraduationCap,
   Menu,
   X,
+  UserPlus,
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 const sidebarLinks = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/admin/dashboard" },
+  { icon: UserPlus, label: "Instructor Requests", path: "/admin/instructor-requests" },
   { icon: Users, label: "Users", path: "/admin/users" },
   { icon: GraduationCap, label: "Instructors", path: "/admin/instructors" },
   { icon: BookOpen, label: "Courses", path: "/admin/courses" },
