@@ -1,23 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, BookMarked, ArrowLeft, Eye, EyeOff, User } from "lucide-react";
+import { BookMarked, ArrowLeft, Eye, EyeOff, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 
-type Role = "student" | "teacher";
-
-const Login = () => {
-  const [searchParams] = useSearchParams();
+const InstructorLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const initialRole = (searchParams.get("role") as Role) || "student";
-  const [selectedRole, setSelectedRole] = useState<Role>(initialRole);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -25,19 +20,20 @@ const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [name, setName] = useState("");
 
-  // Check if user is already logged in
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
-        // Fetch user profile to get role
         supabase
           .from('profiles')
           .select('role')
           .eq('id', session.user.id)
           .maybeSingle()
           .then(({ data: profile }) => {
-            const userRole = profile?.role || 'student';
-            navigate(userRole === 'student' ? '/student/dashboard' : '/instructor/dashboard');
+            if (profile?.role === 'teacher') {
+              navigate('/instructor/dashboard');
+            } else if (profile?.role === 'student') {
+              navigate('/student/dashboard');
+            }
           });
       }
     });
@@ -65,24 +61,30 @@ const Login = () => {
         password,
       });
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
-      // Fetch user profile to get role
       const { data: profile } = await supabase
         .from('profiles')
         .select('role, name')
         .eq('id', data.user.id)
         .maybeSingle();
 
+      if (profile?.role !== 'teacher') {
+        await supabase.auth.signOut();
+        toast({
+          title: "Access denied",
+          description: "This login is for instructors only. Please use the student login.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       toast({
         title: "Welcome back!",
-        description: `Logged in as ${profile?.name || 'User'}`,
+        description: `Logged in as ${profile?.name || 'Instructor'}`,
       });
 
-      const userRole = profile?.role || 'student';
-      navigate(userRole === 'student' ? '/student/dashboard' : '/instructor/dashboard');
+      navigate('/instructor/dashboard');
     } catch (error: any) {
       toast({
         title: "Login failed",
@@ -127,22 +129,19 @@ const Login = () => {
           emailRedirectTo: redirectUrl,
           data: {
             name: name.trim(),
-            role: selectedRole,
+            role: 'teacher',
           }
         }
       });
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
       if (data.user) {
         toast({
           title: "Account created!",
           description: `Welcome to EduNexus, ${name}!`,
         });
-
-        navigate(selectedRole === "student" ? "/student/dashboard" : "/instructor/dashboard");
+        navigate("/instructor/dashboard");
       }
     } catch (error: any) {
       let message = error.message || "Something went wrong";
@@ -161,14 +160,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
-      {/* Background decorations */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-10 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-10 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        {/* Back button */}
         <Link 
           to="/" 
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
@@ -180,56 +177,19 @@ const Login = () => {
         <Card variant="elevated" className="animate-scale-in overflow-hidden">
           <CardHeader className="text-center pb-2">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">E</span>
+              <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
+                <BookMarked className="w-6 h-6 text-accent-foreground" />
               </div>
             </div>
             <CardTitle className="text-2xl">
-              {isSignUp ? "Create Account" : "Welcome to EduNexus"}
+              {isSignUp ? "Instructor Sign Up" : "Instructor Login"}
             </CardTitle>
             <CardDescription>
-              {isSignUp ? "Join us and start your learning journey" : "Sign in to continue your learning journey"}
+              {isSignUp ? "Create your instructor account" : "Access your teaching dashboard"}
             </CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-6">
-            {/* Role Selection */}
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setSelectedRole("student")}
-                className={`p-4 rounded-xl border-2 transition-all duration-200 ${
-                  selectedRole === "student"
-                    ? "border-primary bg-primary/5"
-                    : "border-border hover:border-primary/50"
-                }`}
-              >
-                <GraduationCap className={`w-6 h-6 mx-auto mb-2 ${
-                  selectedRole === "student" ? "text-primary" : "text-muted-foreground"
-                }`} />
-                <p className={`text-sm font-medium ${
-                  selectedRole === "student" ? "text-primary" : "text-muted-foreground"
-                }`}>Student</p>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setSelectedRole("teacher")}
-                className={`p-4 rounded-xl border-2 transition-all duration-200 ${
-                  selectedRole === "teacher"
-                    ? "border-accent bg-accent/5"
-                    : "border-border hover:border-accent/50"
-                }`}
-              >
-                <BookMarked className={`w-6 h-6 mx-auto mb-2 ${
-                  selectedRole === "teacher" ? "text-accent" : "text-muted-foreground"
-                }`} />
-                <p className={`text-sm font-medium ${
-                  selectedRole === "teacher" ? "text-accent" : "text-muted-foreground"
-                }`}>Instructor</p>
-              </button>
-            </div>
-
             <AnimatePresence mode="wait">
               {isSignUp ? (
                 <motion.form
@@ -284,23 +244,19 @@ const Login = () => {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        {showPassword ? (
-                          <EyeOff className="w-4 h-4" />
-                        ) : (
-                          <Eye className="w-4 h-4" />
-                        )}
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
                   </div>
 
                   <Button
                     type="submit"
-                    variant={selectedRole === "student" ? "hero" : "accent"}
+                    variant="accent"
                     size="lg"
                     className="w-full"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Creating account..." : `Sign up as ${selectedRole === "student" ? "Student" : "Instructor"}`}
+                    {isLoading ? "Creating account..." : "Sign up as Instructor"}
                   </Button>
                 </motion.form>
               ) : (
@@ -341,37 +297,42 @@ const Login = () => {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        {showPassword ? (
-                          <EyeOff className="w-4 h-4" />
-                        ) : (
-                          <Eye className="w-4 h-4" />
-                        )}
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
                   </div>
 
                   <Button
                     type="submit"
-                    variant={selectedRole === "student" ? "hero" : "accent"}
+                    variant="accent"
                     size="lg"
                     className="w-full"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Signing in..." : `Sign in as ${selectedRole === "student" ? "Student" : "Instructor"}`}
+                    {isLoading ? "Signing in..." : "Sign in as Instructor"}
                   </Button>
                 </motion.form>
               )}
             </AnimatePresence>
 
-            <p className="text-center text-sm text-muted-foreground">
-              {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-              <button 
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="text-primary hover:underline font-medium"
-              >
-                {isSignUp ? "Sign in" : "Sign up"}
-              </button>
-            </p>
+            <div className="space-y-3">
+              <p className="text-center text-sm text-muted-foreground">
+                {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
+                <button 
+                  onClick={() => setIsSignUp(!isSignUp)}
+                  className="text-accent hover:underline font-medium"
+                >
+                  {isSignUp ? "Sign in" : "Sign up"}
+                </button>
+              </p>
+              
+              <p className="text-center text-sm text-muted-foreground">
+                Are you a student?{" "}
+                <Link to="/student/login" className="text-primary hover:underline font-medium">
+                  Student Login
+                </Link>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -379,4 +340,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default InstructorLogin;
